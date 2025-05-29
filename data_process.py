@@ -15,5 +15,9 @@ df= df[df["product"]=="pink morsel"]
 df.to_csv("data/pink_morsel.csv",index=False)
 
 df=pd.read_csv("data/pink_morsel.csv")
-df["sales"]=df["quantity"]*df["price"]
+df["price"] = df["price"].str.replace('$', '').astype(float)
+df["sales"] = df["quantity"].astype(int) * df["price"]
 print(df)
+df = df.drop(["product","price", "quantity"],axis=1)
+print(df)
+df.to_csv("data/final_data.csv",index=False)
